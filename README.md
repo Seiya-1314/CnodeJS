@@ -20,7 +20,87 @@
 <br>
 <br>
 
-## 开发思路
+## 需求分析
+
+<br>
+
+### 一、界面构成
+
+整个应用分成三个主页面，如下：
+
+- `【首页】`：内容列表页
+
+- `【详情】`：内容详情页
+
+- `【用户中心】`：个人用户中心页
+
+<br>
+
+### 二、跳转关系
+
+- 点击左上角 logo 即可跳转到【首页】
+
+- 点击右上角“关于”按钮出现弹层，展示信息
+
+- 【首页】点击 table 标签切换不同的内容列表，点击列表标题进入【详情页】，点击列表用户头像进入【用户中心】
+
+- 【详情】页点击“用户头像”和“作者名”进入【用户中心】,点击“话题标题”进入对应的【详情】
+
+- 【用户中心】点击“话题标题”进入对应的【详情】
+
+<br>
+
+### 三、数据分析
+
+**用户数据：**
+```
+- 用户ID
+- 用户头像
+- 用户名
+- 用户积分
+- 注册时间
+- GitHub账户
+- 创建的话题
+- 参与的话题
+```
+
+<br>
+
+**话题数据:**
+```
+- 话题ID
+- 标题
+- 类型
+- 发布时间
+- 作者
+- 浏览量
+- 评论数
+  - 评论序号
+  - 评论人
+  - 评论人头像
+  - 评论内容
+  - 评论时间
+  - 点赞数
+- 话题内容
+```
+
+<br>
+<br>
+
+## 开发准备
+
+<br>
+
+- 图片等静态资源准备
+
+- reset.css 文件准备
+
+- web字体文件准备
+
+<br>
+<br>
+
+## 开发历程
 
 ### 一、vue 项目构建
 
@@ -34,33 +114,33 @@ vue init webpack-simple CnodeJS
 
 1. 最终项目结构如下：
 
-```npm
+```
 ├── README.md
 ├── index.html
-├── package.json            # 项目配置文件
+├── package.json                          # 项目配置文件
 ├── src
-│   ├── App.vue             # 根 vue 组件
-│   ├── assets              # 静态资源
+│   ├── App.vue                           # 根 vue 组件
+│   ├── assets                            # 静态资源
 │   ├── commponents
-│   ├── main.js             # 入口文件
-│   ├── plugins             # 引入的插件
-│   │   └── element-ui.js
-│   ├── router              # router 配置
-│   │   └── index.js
-│   ├── store               # Vue store模块
-│   │   ├── action.js       # 根级别的 action
-│   │   ├── getters.js      # 属性接口
-│   │   ├── index.js        #
-│   │   ├── mutations.js    # 根级别的 mutation
-│   │   └── state.js        # 根级别的 state
-│   ├── utils               # 工具类
-│   │   └── api.js
-│   └── views               # 视图组件
+│   ├── main.js                           # 入口文件
+│   ├── plugins                           # 引入的插件
+│       └── element-ui.js
+│   ├── router                            # router 配置
+│       └── index.js
+│   ├── store                             # Vue store模块
+│       ├── action.js                     # 根级别的 action
+│       ├── getters.js                    # 属性接口
+│       ├── index.js                      
+│       ├── mutations.js                  # 根级别的 mutation
+│       └── state.js                      # 根级别的 state
+│   ├── utils                             # 工具类
+│       └── api.js
+│   └── views                             # 视图入口组件
 │       ├── Home.vue
 │       ├── Topic.vue
 │       └── User.vue
-├── static                  # 静态资源
-└── webpack.config.js       # webpack 配置文件
+├── static                                # 静态资源
+└── webpack.config.js                     # webpack 配置文件
 ```
 
 <br>
@@ -148,13 +228,49 @@ module.exports = {
 },
 ```
 
+<br>
 
+### 二、vue 组件设计
 
+```
+└─App.vue                                     # 挂载整个应用
+    ├─Home.vue                                # 首页
+    │   ├─HomeTopicTable.vue                  # 话题table
+    │   └─HomeTopicList.vue                   # 话题列表
+    └─Article.vue                             # 详情页
+    │   ├─ArticleUserPanel.vue                # 作者面板
+    │   └─ArticleTopicPanel.vue               # 话题面板
+    └─User.vue                                # 用户中心
+    │   ├─UserPanel.vue                       # 用户面板
+    │   └─UserTopicPanel.vue                  # 话题面板
+    └─common                
+        └─Header                
+            └─VHeader.vue                     # 公共头部组件
+        └─AlertTip.vue                        # 弹出框组件
+```
 
+<br>
 
+### 三、路由配置
 
+1. 路由安装：
 
+```
+npm install vue-router --save
+```
 
+<br>
+
+2. 在router/index.js文件导入路由：
+
+```js
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+```
+
+3. 按照之前的跳转关系配置路由信息
 
 
 

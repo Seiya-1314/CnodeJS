@@ -39,6 +39,8 @@ module.exports = {
     "error" -> 2 开启错误规则
     */
     'rules': {
+        /*eslint no-new: "off"*/
+        'no-new': 0,
         // allow paren-less arrow functions
         'arrow-parens': 0,
         // allow async-await
