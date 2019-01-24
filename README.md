@@ -166,13 +166,12 @@ module.exports = {
     // 默认情况下，ESLint 会在所有父级目录里寻找配置文件，一直到根目录。ESLint 一旦发现配置文件中有 "root": true，它就会停止在父级目录中寻找。
     root: true,
 
-    // 此项是用来指定eslint解析器的，解析器必须符合规则，babel-eslint解析器是对babel解析器的包装使其与ESLint解析
-    parser: 'babel-eslint',
-
     // 此项是用来指定javaScript语言类型和风格，sourceType用来指定js导入的方式，默认是script，此处设置为module，指某块导入方式
     parserOptions: {
         // 设置 script(默认) 或 module，如果代码是在 ECMASCRIPT 中的模块
-        sourceType: 'module'
+        sourceType: 'module',
+        // 此项是用来指定eslint解析器的，解析器必须符合规则，babel-eslint解析器是对babel解析器的包装使其与ESLint解析
+        parser: 'babel-eslint'
     },
 
     // 此项指定环境的全局变量，下面的配置指定为浏览器环境
@@ -193,15 +192,18 @@ module.exports = {
     plugins: [
         'html'
     ],
+
     // add your custom rules here
     /*
-    下面这些RULES是用来设置从插件来的规范代码的规则，使用必须去掉前缀ESLINT-PLUGIN-
+    下面这些rules是用来设置从插件来的规范代码的规则，使用必须去掉前缀eslint-plugin-
     主要有如下的设置规则，可以设置字符串也可以设置数字，两者效果一致
-    "OFF" -> 0 关闭规则
-    "WARN" -> 1 开启警告规则
-    "ERROR" -> 2 开启错误规则
+    "off" -> 0 关闭规则
+    "warn" -> 1 开启警告规则
+    "error" -> 2 开启错误规则
     */
     'rules': {
+        /*eslint no-new: "off"*/
+        'no-new': 0,
         // allow paren-less arrow functions
         'arrow-parens': 0,
         // allow async-await
@@ -245,7 +247,7 @@ module.exports = {
     │   └─UserTopicPanel.vue                  # 话题面板
     └─common                
         └─Header                
-            └─VHeader.vue                     # 公共头部组件
+        │   └─VHeader.vue                     # 公共头部组件
         └─AlertTip.vue                        # 弹出框组件
 ```
 
@@ -274,6 +276,31 @@ Vue.use(Router)
 
 
 
+
+
+
+
+
+
+
+## bug 问题解决
+
+1. **ESlint 配置问题**：
+
+按上面的步骤配置完 ESlint 后，报错：Adjacent JSX elements must be wrapped。意思是 Vue 文件被识别成了jsx文件，但是我这里并没有使用jsx的相关配置，于是参考了这个链接进行了修改（[参考链接](https://github.com/vuejs/eslint-plugin-vue/issues/186)），更改如下：
+
+```js
+{
+    "root": true,
+-   "parser": "babel-eslint",
+    "parserOptions": {
++       "parser": "babel-eslint"
+    }
+
+}
+```
+
+修改完后，产生了新的报错：Unexpected token /。最终通过安装 eslint-plugin-vue ，并进行了相关配置，运行成功。
 
 
 ## Build Setup
