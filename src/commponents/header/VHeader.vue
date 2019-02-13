@@ -38,7 +38,7 @@
       a {
         color: #fff;
         font-size: 15px;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
       }
     }

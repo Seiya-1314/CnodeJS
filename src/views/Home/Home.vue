@@ -1,44 +1,26 @@
 <template>
-  <div class="home-wrapper">
-    <div class="topic-table">
-      <router-link to="/all">全部</router-link>
-      <router-link to="/good">精华</router-link>
-      <router-link to="/share">分享</router-link>
-      <router-link to="/ask">问答</router-link>
-      <router-link to="/job">招聘</router-link>
-    </div>
-    <div class="topic-lists">
-      <ul class="lists-wrapper">
-        <li class="topic-item">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-          <span class="comment">
-            <em>306</em><em>/5516</em>
-          </span>
-          <el-tag
-            type="warning">
-            分享
-          </el-tag>
-          <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
-          <span class="time">1天前</span>
-        </li>
-
-      </ul>
-    </div>
-  </div>
+  <home-topic-table />
 </template>
 
 <script>
-  export default {};
+  import HomeTopicTable from './HomeTopicTable';
+
+  export default {
+    components: {
+      HomeTopicTable
+    }
+  };
 </script>
 
 <style lang="scss">
   .home-wrapper {
     margin: auto;
-    margin-top: 90px;
+    margin-top: 70px;
     padding: 20px 30px;
     width: 900px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     .topic-table {
+      margin-bottom: 15px;
       border-bottom: 2px solid #E4E7ED;
       a {
         font-size: 14px;
@@ -59,7 +41,7 @@
       .lists-wrapper {
         .topic-item {
           display: flex;
-          margin: 10px;
+          margin: 15px;
           align-items: center;
           justify-content: space-between;
           img {
@@ -78,6 +60,25 @@
               font-weight: 200;
               color: grey;
             }
+          }
+          .title {
+            width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin: 0;
+          }
+          a {
+            color: #42b983;
+            font-weight: 500;
+            padding: 0px 2px;
+            text-decoration: none;
+          }
+          .time {
+            width: 70px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, .65);
+            text-align: right;
           }
         }
       }
