@@ -7,16 +7,14 @@
       <router-link to="/ask">问答</router-link>
       <router-link to="/job">招聘</router-link>
     </div>
-    <home-topic-list />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import HomeTopicList from './HomeTopicList';
 
   export default {
     components: {
-      HomeTopicList
     }
   };
 </script>
