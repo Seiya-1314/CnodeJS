@@ -232,6 +232,47 @@ module.exports = {
 
 <br>
 
+3. 完整引入 Element-ui ：
+
+- 安装 Element-ui
+
+```
+cnpm i element-ui -S        # -S 即 -save，表示写入到 dependencies 对象中
+```
+
+<br>
+
+- plugins 中新建 element-ui.js 文件，引入 element-ui ：
+
+```js
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';        # 样式必须引入
+
+Vue.use(ElementUI);                                   # 全局注册 element ui
+```
+
+<br>
+
+- main.js 文件中写入一下内容:
+
+```js
+import './plugins/element-ui.js';
+```
+
+<br>
+
+- 由于 elment-ui 的css中运用了饿了么的字体库，即.wtff文件，所以需要引入一个解析器，在webpack.conf.js 添加如下代码：
+
+```js
+{
+  test: /\.(eot|svg|ttf|woff|woff2)$/,
+  loader: 'file-loader'
+}
+```
+
+<br>
+
 ### 二、vue 组件设计
 
 ```

@@ -1,38 +1,35 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from './views/Home.vue';
-import Topic from './views/Topic.vue';
-import User from './views/User.vue';
+import Home from '../views/Home/Home.vue';
+import Article from '../views/Article/Article.vue';
+import User from '../views/User/User.vue';
 
 Vue.use(Router);
 
 export default new Router({
   model: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home
+/*      children: [
+        {
+          path: 'all',
+          component: UserProfile
+        }
+      ]*/
     },
     {
-      path: '/topic/:id',
-      name: 'topic',
-      component: Topic
+      path: '/article/:id',
+      name: 'article',
+      component: Article
     },
     {
       path: '/user/:id',
       name: 'user',
       component: User
-    },
-    {
-      path: '/topic',
-      redirect: '/'
-    },
-    {
-      path: '/user',
-      redirect: '/'
     }
   ]
 });

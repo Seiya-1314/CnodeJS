@@ -1,11 +1,35 @@
 <template>
-  <div>这是</div>
+  <el-container>
+    <el-header
+      height="50px"
+      class="header"
+    >
+      <v-header />
+    </el-header>
+    <el-main>
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-export default {};
+  import VHeader from './commponents/header/VHeader';
+
+  export default {
+    components: {
+      VHeader
+    }
+  };
 </script>
 
 <style lang="scss">
+  @import "assets/css/reset.css";
 
+  .header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background: #444444;
+  }
 </style>
