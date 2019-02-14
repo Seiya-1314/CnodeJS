@@ -295,12 +295,83 @@ npm install axios --save
 
 - 引入 axios 
 
+```js
+import axios from 'axios'                           // 引入 axios
+import { Message, Loading } from 'element-ui'       // element 的提示框组件和loading组件，大家可根据自己的ui组件更改
+```
 
+<br>
 
+- 创建 axios 实例，并设置地址和请求超时
 
+```js
+var instance = axios.create({
+  baseURL: 'https://cnodejs.org/api/v1',
+  timeout: 5000
+});
+```
 
+<br>
+
+- 设置 post 请求头
+
+```js
+instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+```
+
+<br>
+
+- 请求失败后的错误处理
+
+```js
+const error = () => {
+  Message({
+    type: 'error',
+    message: '遇到错误，请刷新重试！',
+    duration: 2 * 1000
+  })
+}
+```
+
+<br>
+
+- 配置请求拦截和响应拦截
+
+```js
+instance.interceptors.request.use(
+  config => {
+    startLoading()
+    return config
+  },
+  err => {
+    endLoading()
+    error()
+    Promise.reject(err)
+  }
+)
+
+// 响应拦截器
+instance.interceptors.response.use(
+  response => {
+    endLoading()
+    return response.data
+  },
+  err => {
+    endLoading()
+    error()
+    return Promise.reject(err)
+  }
+)
+```
+
+<br>
+
+- 其他函数的封装（略）
+
+<br>
 
 2. api 接口的统一管理：
+
 
 
 <br>
