@@ -2,9 +2,9 @@
   <div class="topic-lists">
     <ul class="lists-wrapper">
       <li class="topic-item">
-        <a href="">
+        <router-link to="user/111">
           <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-        </a>
+        </router-link>
         <span class="comment">
             <em>306</em><em>/5516</em>
           </span>
@@ -12,7 +12,9 @@
           type="warning">
           分享
         </el-tag>
-        <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
+        <router-link to="article/111" class="title">
+          midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区
+        </router-link>
         <span class="time">1 小时前</span>
       </li>
       <li class="topic-item">

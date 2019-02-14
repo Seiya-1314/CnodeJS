@@ -29,14 +29,23 @@
     .topic-table {
       margin-bottom: 15px;
       border-bottom: 2px solid #E4E7ED;
+      .router-link-active {
+        color: #409eff;
+        border-bottom: 2px solid #409eff;
+      }
       a {
+        display: inline-block;
+        margin: 0 20px;
+        height: 40px;
         font-size: 14px;
         color: #303133;
         line-height: 40px;
         font-weight: 500;
-        padding-right: 40px;
+        &:first-child {
+          margin-left: 0;
+        }
         &:last-child {
-          padding-right: 0;
+          marging-right: 0;
         }
         &:hover {
           color: #409eff;

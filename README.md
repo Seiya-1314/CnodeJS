@@ -282,14 +282,16 @@ import './plugins/element-ui.js';
     │   └─HomeTopicList.vue                   # 话题列表
     └─Article.vue                             # 详情页
     │   ├─ArticleUserPanel.vue                # 作者面板
-    │   └─ArticleTopicPanel.vue               # 话题面板
+    │   ├─ArticleTopicPanel.vue               # 话题面板
+    │   └─ArticleReplyPanel.vue               # 评论面板
     └─User.vue                                # 用户中心
     │   ├─UserPanel.vue                       # 用户面板
     │   └─UserTopicPanel.vue                  # 话题面板
     └─common                
         └─Header                
         │   └─VHeader.vue                     # 公共头部组件
-        └─AlertTip.vue                        # 弹出框组件
+        ├─AlertTip.vue                        # 弹出框组件
+        └─Divider.vue                         # 分割线组件
 ```
 
 <br>
@@ -315,7 +317,51 @@ Vue.use(Router)
 
 3. 按照之前的跳转关系配置路由信息
 
-
+```js
+export default new Router({
+  model: 'history',
+  routes: [
+    {
+      path: '/',
+      redirect: '/all',
+      name: 'home',
+      component: Home,
+      children: [
+        {
+          path: 'all',
+          component: HomeTopicList
+        },
+        {
+          path: 'good',
+          component: HomeTopicList
+        },
+        {
+          path: 'share',
+          component: HomeTopicList
+        },
+        {
+          path: 'ask',
+          component: HomeTopicList
+        },
+        {
+          path: 'job',
+          component: HomeTopicList
+        }
+      ]
+    },
+    {
+      path: '/article/:id',
+      name: 'article',
+      component: Article
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: User
+    }
+  ]
+});
+```
 
 
 
