@@ -122,6 +122,10 @@ vue init webpack-simple CnodeJS
 │   ├── App.vue                           # 根 vue 组件
 │   ├── assets                            # 静态资源
 │   ├── commponents
+│   ├── filters                           # 过滤器函数封装
+│   ├── http                              # 数据获取调配
+│       ├── api.js                        # 统一 api 管理
+│       └── http.js                       # 数据获取函数封装
 │   ├── main.js                           # 入口文件
 │   ├── plugins                           # 引入的插件
 │       └── element-ui.js
@@ -133,7 +137,7 @@ vue init webpack-simple CnodeJS
 │       ├── index.js                      
 │       ├── mutations.js                  # 根级别的 mutation
 │       └── state.js                      # 根级别的 state
-│   ├── utils                             # 工具类
+│   ├── utils                             # 公共工具类
 │       └── api.js
 │   └── views                             # 视图入口组件
 │       ├── Home.vue
@@ -218,7 +222,7 @@ module.exports = {
 
 - 在 webpack.conf.js 添加如下代码：(基于vue-cli构建的完整项目，需要在 webpack.base.conf.js 中配置)
 
-```
+```js
 {
     test: /\.(js|vue)$/,
     loader: 'eslint-loader',
@@ -273,7 +277,35 @@ import './plugins/element-ui.js';
 
 <br>
 
-### 二、vue 组件设计
+### 二、相关工具类封装
+
+为了锻炼好的编程习惯，尝试进行一些函数的封装，对代码进行简化，便于后期的更新和维护。
+
+<br>
+
+1. axios 的封装和: 
+
+- 安装 axios 
+
+```
+npm install axios --save
+```
+
+<br>
+
+- 引入 axios 
+
+
+
+
+
+
+2. api 接口的统一管理：
+
+
+<br>
+
+### 三、vue 组件设计
 
 ```
 └─App.vue                                     # 挂载整个应用
@@ -296,7 +328,7 @@ import './plugins/element-ui.js';
 
 <br>
 
-### 三、路由配置
+### 四、路由配置
 
 1. 路由安装：
 
@@ -314,6 +346,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 ```
+
+<br>
 
 3. 按照之前的跳转关系配置路由信息
 
@@ -366,8 +400,8 @@ export default new Router({
 
 
 
-
-
+<br>
+<br>
 
 
 ## bug 问题解决
@@ -389,6 +423,9 @@ export default new Router({
 
 修改完后，产生了新的报错：Unexpected token /。最终通过安装 eslint-plugin-vue ，并进行了相关配置，运行成功。
 
+
+<br>
+<br>
 
 ## Build Setup
 
