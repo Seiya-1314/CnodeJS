@@ -1,98 +1,41 @@
 <template>
   <div class="topic-lists">
     <ul class="lists-wrapper">
-      <li class="topic-item">
-        <router-link to="user/111">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
+      <li class="topic-item" v-for="item in list" :key="item.id">
+        <router-link :to='{path: "/user/"+item.author.loginname}'>
+          <img width="50" height="50" :src="item.author.avatar_url">
         </router-link>
         <span class="comment">
-            <em>306</em><em>/5516</em>
+            <em>{{ item.reply_count }}</em><em>/{{ item.visit_count }}</em>
           </span>
         <el-tag
-          type="warning">
-          分享
+          :type="$tabs[item.tab].type">
+          {{ $tabs[item.tab].name }}
         </el-tag>
-        <router-link to="article/111" class="title">
-          midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区
+        <router-link :to="{path: '/article/' + item.id }" class="title">
+          {{ item.title }}
         </router-link>
-        <span class="time">1 小时前</span>
-      </li>
-      <li class="topic-item">
-        <a href="">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-        </a>
-        <span class="comment">
-            <em>306</em><em>/5516</em>
-          </span>
-        <el-tag
-          type="warning">
-          分享
-        </el-tag>
-        <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
-        <span class="time">1 小时前</span>
-      </li>
-      <li class="topic-item">
-        <a href="">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-        </a>
-        <span class="comment">
-            <em>306</em><em>/5516</em>
-          </span>
-        <el-tag
-          type="warning">
-          分享
-        </el-tag>
-        <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
-        <span class="time">1 小时前</span>
-      </li>
-      <li class="topic-item">
-        <a href="">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-        </a>
-        <span class="comment">
-            <em>306</em><em>/5516</em>
-          </span>
-        <el-tag
-          type="warning">
-          分享
-        </el-tag>
-        <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
-        <span class="time">1 小时前</span>
-      </li>
-      <li class="topic-item">
-        <a href="">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-        </a>
-        <span class="comment">
-            <em>306</em><em>/5516</em>
-          </span>
-        <el-tag
-          type="warning">
-          分享
-        </el-tag>
-        <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
-        <span class="time">1 小时前</span>
-      </li>
-      <li class="topic-item">
-        <a href="">
-          <img width="50" height="50" src="https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48">
-        </a>
-        <span class="comment">
-            <em>306</em><em>/5516</em>
-          </span>
-        <el-tag
-          type="warning">
-          分享
-        </el-tag>
-        <a href="" class="title">midway v1.0 社区正式发布 - 面向未来的全栈开发方案midway v1.0 社区正式发布 - 面向未来的全栈开发方案</a>
-        <span class="time">1 小时前</span>
+        <span class="time">
+          {{$moment(item.last_reply_at, 'YYYY-MM-DD')
+          .startOf('day')
+          .fromNow()}}
+        </span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-  export default {};
+  /**
+   *
+   */
+  export default {
+    props: {
+      list: {
+        type: Array
+      }
+    }
+  };
 </script>
 
 <style lang="scss">
@@ -110,12 +53,12 @@
           width: 50px;
           text-align: center;
           em:first-child {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 200;
             color: purple;
           }
           em:last-child {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 200;
             color: grey;
           }

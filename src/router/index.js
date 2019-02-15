@@ -19,23 +19,43 @@ export default new Router({
       children: [
         {
           path: 'all',
-          component: HomeTopicList
+          name: 'all',
+          component: HomeTopicList,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
         },
         {
           path: 'good',
-          component: HomeTopicList
+          name: 'good',
+          component: HomeTopicList,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
         },
         {
           path: 'share',
-          component: HomeTopicList
+          name: 'share',
+          component: HomeTopicList,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
         },
         {
           path: 'ask',
-          component: HomeTopicList
+          name: 'ask',
+          component: HomeTopicList,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
         },
         {
           path: 'job',
-          component: HomeTopicList
+          name: 'job',
+          component: HomeTopicList,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
         }
       ]
     },

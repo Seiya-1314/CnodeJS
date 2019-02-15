@@ -372,7 +372,51 @@ instance.interceptors.response.use(
 
 2. api 接口的统一管理：
 
+- 引入 http.js 
 
+```js
+import axios from './http';
+```
+
+<br>
+
+- 封装获取首页话题列表数据的函数
+
+```js
+export const getTopics = data => {
+  return axios({
+    url: '/topics',
+    method: 'get',
+    params: data
+  });
+};
+```
+
+<br>
+
+- 封装获取话题详情数据的函数
+
+```js
+export const getTopicById = id => {
+  return axios({
+    url: `/topic/${id}`,
+    method: 'get'
+  });
+};
+```
+
+<br>
+
+- 封装获取用户详情数据函数
+
+```js
+export const getUserByName = loginname => {
+  return axios({
+    url: `/user/${loginname}`,
+    method: 'get'
+  });
+};
+```
 
 <br>
 
