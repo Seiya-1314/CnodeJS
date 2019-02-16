@@ -32,4 +32,9 @@
     width: 100%;
     background: #444444;
   }
+  .el-main {
+    margin: auto;
+    margin-top: 70px;
+    width: 1240px;
+  }
 </style>

@@ -95,6 +95,13 @@ export default {
   created() {
     this.getTopics();
     window.addEventListener("scroll", this.scrollMethod);        // 添加scroll事件句柄
+  },
+
+  /**
+   * 组件被销毁的钩子：移除绑定的滚动事件
+   */
+  destroyed() {
+    window.removeEventListener("scroll", this.scrollMethod);
   }
 };
 </script>
@@ -102,7 +109,6 @@ export default {
 <style lang="scss">
 .home-wrapper {
   margin: auto;
-  margin-top: 70px;
   padding: 20px 30px;
   width: 900px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);

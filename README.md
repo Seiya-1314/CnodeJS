@@ -538,9 +538,85 @@ export default new Router({
 
 修改完后，产生了新的报错：Unexpected token /。最终通过安装 eslint-plugin-vue ，并进行了相关配置，运行成功。
 
+<br>
+
+2. **使用vue的v-if、v-show判断数组长度length报错**：
+
+如下所示：
+
+```vue
+<article-topic-panel v-if="userData.recent_topics.length"></article-topic-panel>
+```
+
+<br>
+
+报错信息如下：
+```vue
+Error in render: "TypeError: Cannot read property 'length' of undefined"
+```
+
+<br>
+
+报错原因查询如下：
+
+> 第一次初始化时，userData 未进行定义，所以直接报错了。
+
+<br>
+
+调整如下：
+
+```vue
+<article-topic-panel
+  v-if="userData.recent_topics !== undefined && userData.recent_topics.length">
+</article-topic-panel>
+```
+
+> 这样第一次初始化时，虽然判断仍未通过，但在第二次初始化时，userData 已被定义，左边为真，如果右边也判定为真，就渲染组件，否者就不渲染。
+
+
+<br>
+
+3. **父组件传递数据给子组件时，传递值为 undefined **：
+
+如下所示：
+
+```vue
+<article-user-panel
+  :loginname="topic.loginname" @transferData="getUserData">
+</article-user-panel>
+```
+
+<br>
+
+通过测试发现此时传递给子组件的值为 undefined，判断应该是第一次初始化时，还未定义的值传递给了子组件，导致了报错。修改如下：
+
+```vue
+<article-user-panel
+  v-if="topic.loginname !== undefined"
+  :loginname="topic.loginname" @transferData="getUserData">
+</article-user-panel>
+```
+
+> 判断 topic.loginname 的值是否已经被定义，如果已经定义，再渲染组件，并将值传递给子组件(具体原理未深究)
 
 <br>
 <br>
+
+
+## 遗留问题
+
+<u>1. 安装 eslint-plugin-vue 后，开发过程中由于不熟悉 eslint-plugin-vue的语法检查规则，出现了很多语法检查的警告信息，暂未研究如何关闭警告信息</u>
+
+<br>
+
+<u>2. 为了解决两个子组件之间的数据传递问题，尝试在子组件中获取数据后，同时将获取到的数据，通过事件传递数据给父组件，然后再传递给另外一个子组件。虽然尝试成功，但产生了一个新的问题，页面会进行两次刷新，暂未解决。</u>
+
+<br>
+
+
+<br>
+<br>
+
 
 ## Build Setup
 

@@ -1,44 +1,112 @@
 <template>
-  <div class="reply-wrapper">
+  <ul class="reply-wrapper">
     <div>
-      <span>37</span>&nbsp;回复
+      <span>{{ reply.length }}</span>&nbsp;回复
     </div>
-    <div class="reply-item">
-      <router-link to="user/111" class="avater">
-        <img src='https://gravatar.com/avatar/c4e414b7264b513a00bbd8ec3e9a0d66?s=48' alt="头像" />
+    <li class="reply-item" v-for="(item, index) in reply" :key="item.id">
+      <router-link :to='"/user/" + item.author.loginname' class="avater">
+        <img width="50" height="50" :src='item.author.avatar_url' alt="头像" />
       </router-link>
       <div>
-        <div class="info">
+        <div class="reply-info">
           <p>
-            <span>1楼&nbsp;</span>
-            <router-link to="user/111">
-              czy88888
+            <span>{{ index + 1 }}楼&nbsp;</span>
+            <router-link :to='"/user/" + item.author.loginname'>
+              {{ item.author.loginname }}
             </router-link>
             <span>
               &nbsp;
-              1 个月前
+              {{$moment(item.create_at, 'YYYY-MM-DD').startOf('day').fromNow()}}
             </span>
           </p>
           <span class="thumbs">
-            <img src="../../../static/thumbs-up.svg" alt="点赞" />
-            3
+            <img width="12" height="15" v-if='item.ups.length' src="../../../static/thumbs-up.svg" alt="点赞" />
+            {{ item.ups.length !== 0 ? item.ups.length : '' }}
           </span>
         </div>
-        <p class="content">
-          赞一个! 我之前也写了一个, 不过是插件扩展的, 基本上把 nest 的核心都抄了过来，不过 inject 保留了, 个人不喜欢依赖来依赖去.
-        </p>
+        <p v-html="item.content"></p>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </template>
 
 <script>
 /**
  * 评论组件
  **/
-export default {};
+export default {
+  props: {
+    reply: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }
+  }
+};
 </script>
 
-<style>
-
+<style lang="scss">
+.reply-wrapper {
+  width: 100%;
+  > div {
+    display: flex;
+    padding: 10px 20px;
+    border: 1px solid #ebedf0;
+    border-bottom-width: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: bold;
+    span {
+      font-weight: bold;
+    }
+  }
+  .reply-item {
+    display: flex;
+    border: 1px solid #ebedf0;
+    border-bottom-width: 0;
+    color: rgba(0, 0, 0, 0.65);
+    padding: 10px 20px;
+    div {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .reply-info {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        .thumbs {
+          font-size: 15px;
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 5px;
+            transform: rotate(-15deg);
+          }
+        }
+      }
+      p {
+        /deep/ img {
+          width: 100%;
+        }
+      }
+    }
+    a {
+      color: #42b983;
+      font-weight: 500;
+      padding: 0px 2px;
+      text-decoration: none;
+    }
+    .avater {
+      img {
+        border-radius: 5px;
+        margin-right: 15px;
+      }
+    }
+    &:last-child {
+      border-bottom: 1px solid #ebedf0;
+    }
+  }
+}
 </style>

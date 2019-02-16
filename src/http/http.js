@@ -47,7 +47,7 @@ var instance = axios.create({
 /**
  * 设置 post 请求头
  **/
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+instance.defaults.headers.post['content-type'] = 'application/x-www-form-urlencoded';
 
 
 /**
