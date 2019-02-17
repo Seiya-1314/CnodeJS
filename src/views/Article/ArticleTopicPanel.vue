@@ -1,6 +1,6 @@
 <template>
   <div class="topic-panel panel">
-    <div class="panel-header">最近创建的话题</div>
+    <div class="panel-header"><slot></slot></div>
     <divider></divider>
     <ul class="recent-topic">
       <li v-for="item in userTopic" :key="item.id">

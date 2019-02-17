@@ -33,10 +33,12 @@
       <article-topic-panel
         v-if="userData.recent_topics !== undefined && userData.recent_topics.length"
         :userTopic="userData.recent_topics">
+        最近创建的话题
       </article-topic-panel>
       <article-topic-panel
         v-if="userData.recent_replies !== undefined && userData.recent_replies.length"
         :user-topic="userData.recent_replies">
+        最近参与的话题
       </article-topic-panel>
     </div>
   </div>
