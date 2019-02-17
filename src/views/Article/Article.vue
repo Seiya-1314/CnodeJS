@@ -84,7 +84,21 @@
 
       getUserData(userData) {
         this.userData = userData;
-      }
+      },
+
+      /**
+       * 当路由发生切换时，更新页面数据
+       */
+      routerChanged() {
+        this.fetchData(this.$route.params.id);
+      },
+    },
+
+    /**
+     * 监听路由变化，随时更新话题信息
+     */
+    watch: {
+      '$route': 'routerChanged'
     },
 
     /**

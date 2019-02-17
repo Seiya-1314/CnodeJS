@@ -37,9 +37,26 @@
     },
 
     methods: {
+      /**
+       * 通过 transferData 事件接收子组件抛出的用户信息数据
+       */
       getUserData(userData) {
         this.userData = userData;
+      },
+
+      /**
+       * 当路由发生切换时，更新用户id
+       */
+      userChanged() {
+        this.loginname = this.$route.params.id;
       }
+    },
+
+    /**
+     * 监听路由变化，随时用户信息
+     */
+    watch: {
+      '$route': 'userChanged'
     },
 
     created() {

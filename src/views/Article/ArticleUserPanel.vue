@@ -51,10 +51,16 @@
       }
     },
 
+    watch: {
+      loginname(newVlaue) {
+        this.fetchData(newVlaue);
+      }
+    },
+
     created() {
-      // if (!this.loginname) {
-      //   return;
-      // }
+      if (!this.loginname) {
+        return;
+      }
       // 获取用户信息
       this.fetchData(this.loginname);
     }

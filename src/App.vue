@@ -27,6 +27,7 @@
 
   .header {
     position: fixed;
+    z-index: 9999;
     top: 0px;
     left: 0px;
     width: 100%;

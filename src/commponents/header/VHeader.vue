@@ -11,15 +11,31 @@
       </a>
     </div>
     <div class="header-tips">
-      <a href="">
+      <span @click="dialogVisible = true">
         关于
-      </a>
+      </span>
     </div>
+    <el-dialog
+      title="作者"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>Seiya-1314</span>
+      <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+    </el-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 
+  export default {
+    data() {
+      return {
+        dialogVisible: false
+      };
+    },
+  };
 </script>
 
 <style lang="scss">
@@ -35,11 +51,24 @@
       position: absolute;
       top: 0;
       right: 0;
-      a {
+      span {
         color: #fff;
+        cursor: pointer;
         font-size: 15px;
         font-weight: 500;
         line-height: 50px;
+      }
+    }
+    .el-dialog__body {
+      padding-top: 10px;
+      padding-bottom: 0;
+      .inside-dialog {
+        p {
+          margin: auto;
+        }
+        .el-icon-star-off::before {
+          color: #eb2f96;
+        }
       }
     }
   }

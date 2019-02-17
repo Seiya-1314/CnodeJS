@@ -432,12 +432,9 @@ export const getUserByName = loginname => {
     │   ├─ArticleTopicPanel.vue               # 话题面板
     │   └─ArticleReplyPanel.vue               # 评论面板
     └─User.vue                                # 用户中心
-    │   ├─UserPanel.vue                       # 用户面板
-    │   └─UserTopicPanel.vue                  # 话题面板
     └─common                
         └─Header                
         │   └─VHeader.vue                     # 公共头部组件
-        ├─AlertTip.vue                        # 弹出框组件
         └─Divider.vue                         # 分割线组件
 ```
 
