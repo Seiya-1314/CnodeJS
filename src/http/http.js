@@ -13,7 +13,8 @@ const error = () => {
   Message({
     type: 'error',
     message: '遇到错误，请刷新重试！',
-    duration: 2 * 1000
+    duration: 2 * 1000,
+    customClass: 'el-custom-message',
   });
 };
 

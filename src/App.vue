@@ -27,7 +27,7 @@
 
   .header {
     position: fixed;
-    z-index: 9999;
+    z-index: 2999;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -37,5 +37,8 @@
     margin: auto;
     margin-top: 70px;
     width: 1240px;
+  }
+  .el-custom-message {
+    margin-top: 50px;
   }
 </style>

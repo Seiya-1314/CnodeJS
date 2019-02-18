@@ -1,34 +1,34 @@
 <template>
   <div class="article-wrapper">
     <div class="leftSide">
-      <div class="title">{{ topic.title }}</div>
+      <div class="title">{{ getArticle.title }}</div>
       <div class="info">
         <span>
           发布于&nbsp;
-          {{$moment(topic.last_reply_at, 'YYYY-MM-DD')
+          {{$moment(getArticle.last_reply_at, 'YYYY-MM-DD')
           .startOf('day')
           .fromNow()}}
         </span>
         &nbsp;•&nbsp;
         作者：
-        <router-link :to="'/user/' + topic.loginname">
-          {{topic.loginname}}
+        <router-link :to="'/user/' + getAuthor">
+          {{getAuthor}}
         </router-link>
         &nbsp;•&nbsp;
-        <span>{{topic.visit_count}}次浏览&nbsp;•&nbsp;</span>
+        <span>{{getArticle.visit_count}}次浏览&nbsp;•&nbsp;</span>
         <span>
           来自：
-          {{$tabs[topic.tab] && $tabs[topic.tab].name}}
+          {{$tabs[getArticle.tab] && $tabs[getArticle.tab].name}}
         </span>
       </div>
       <divider />
-      <div class="content" v-html='topic.content' />
-      <article-reply-panel :reply="topic.replies"></article-reply-panel>
+      <div class="content" v-html='getArticle.content' />
+      <article-reply-panel :reply="getArticle.replies"></article-reply-panel>
     </div>
     <div class="rightSide">
       <article-user-panel
-        v-if="topic.loginname !== undefined"
-        :loginname="topic.loginname" @transferData="getUserData">
+        v-if="getAuthor !== undefined"
+        :loginname="getAuthor" @transferData="getUserData">
       </article-user-panel>
       <article-topic-panel
         v-if="userData.recent_topics !== undefined && userData.recent_topics.length"
@@ -52,7 +52,6 @@
   import ArticleUserPanel from './ArticleUserPanel';
   import ArticleTopicPanel from './ArticleTopicPanel';
   import Divider from '../../commponents/common/Divider';
-  import { getTopicById } from '../../http/api';
 
   export default {
     components: {
@@ -64,9 +63,19 @@
 
     data() {
       return {
-        topic: {},
+        // topic: {},
         userData: {}
       };
+    },
+
+    computed: {
+      getArticle() {
+        return this.$store.getters.getArticles;
+      },
+
+      getAuthor() {
+        return this.$store.getters.getArticleAuthor;
+      }
     },
 
     methods: {
@@ -74,12 +83,7 @@
        * 获取话题详情的函数
        */
       fetchData(id) {
-        getTopicById(id).then(res => {
-          this.topic = {
-            ...res.data,
-            ...res.data.author
-          };
-        });
+        this.$store.dispatch('getArticle', id);
       },
 
       getUserData(userData) {

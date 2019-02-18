@@ -132,7 +132,7 @@ vue init webpack-simple CnodeJS
 │   ├── router                            # router 配置
 │       └── index.js
 │   ├── store                             # Vue store模块
-│       ├── action.js                     # 根级别的 action
+│       ├── actions.js                     # 根级别的 action
 │       ├── getters.js                    # 属性接口
 │       ├── index.js                      
 │       ├── mutations.js                  # 根级别的 mutation
@@ -509,8 +509,62 @@ export default new Router({
 });
 ```
 
+<br>
 
+### 五、vuex状态管理
 
+因为从未使用过 vuex ，所以此次关于 vuex 的引用是在完成了全部组件之后，再通过使用 vuex 进行项目的状态管理，目的是熟悉 vuex 的使用。
+
+1. 安装以及引用 vuex ：
+
+```js
+// 安装 vuex
+npm install vuex --save
+
+// 引用 vuex
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+const store = new Vuex.Store();
+ 
+export default store;
+```
+
+<br>
+
+2. 在 main.js里面引入store，然后再全局注入一下，这样一来就可以在任何一个组件里面使用this.$store了：
+
+```js
+import store from './store'     //引入store
+ 
+new Vue({
+  store,                        //使用store
+})
+```
+
+<br>
+
+3. 定义 state.js 
+
+定义完 state 后，就可以在任何一个组件里面获取 state 中定义的值了，但这不是理想的获取方式，vuex 官方API提供了一个 getters 。
+
+<br>
+
+4. 定义 getters.js
+
+和 vue 计算属性 computed 一样，getters 可以实时监听 state 值的变化(最新状态)。
+
+<br>
+
+5. 定义 mutattions.js
+
+mutattions 也是一个对象，这个对象里面可以放改变 state 的初始值的方法，具体的用法就是给里面的方法传入参数 state 或额外的参数，然后利用 vue 的双向数据驱动进行值的改变。但这不是理想的改变值的方式，在 Vuex 中，mutations里面的方法都是同步事务。
+
+<br>
+
+6. 定义 actions.js 
+
+Action 类似于 mutation，不同在于，Action 提交的是 mutation，而不是直接变更状态；Action 可以包含任意异步操作。
 
 <br>
 <br>

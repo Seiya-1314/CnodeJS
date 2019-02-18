@@ -1,7 +1,7 @@
 <template>
   <div class="user-center">
     <article-user-panel
-      :loginname="loginname" @transferData="getUserData">
+      :loginname="getUser" @transferData="getUserData">
     </article-user-panel>
     <article-topic-panel
       v-if="userData.recent_topics !== undefined && userData.recent_topics.length"
@@ -29,9 +29,15 @@
       ArticleTopicPanel
     },
 
+    computed: {
+      getUser() {
+        return this.$store.getters.getArticleAuthor;
+      }
+    },
+
     data() {
       return {
-        loginname: "",
+        // loginname: "",
         userData: {}
       };
     },
@@ -48,7 +54,7 @@
        * 当路由发生切换时，更新用户id
        */
       userChanged() {
-        this.loginname = this.$route.params.id;
+        this.$store.commit('addArticleAuthor', this.$route.params.id);
       }
     },
 
@@ -60,18 +66,7 @@
     },
 
     created() {
-      this.loginname = this.$route.params.id;
-    },
-
-    /**
-     * 在当前路由改变，但是该组件被复用时调用
-     * 举例来说，对于一个带有动态参数的路径 /user/:id，在 /user/shuiRong 和 /user/martin 之间跳转的时候，
-     * 由于会渲染同样的 User 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-     * 可以访问组件实例 `this`
-     */
-    beforeRouteUpdate(to, from, next) {
-      this.loginname = to.params.id;
-      next();
+      this.$store.commit('addArticleAuthor', this.$route.params.id);
     }
   };
 </script>

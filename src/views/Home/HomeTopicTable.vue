@@ -8,7 +8,7 @@
       <router-link to="/job">招聘</router-link>
     </div>
     <keep-alive>
-      <router-view :list="list" v-if="$route.meta.keepAlive"></router-view>
+      <router-view :list="articleLists" v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
   </div>
 </template>
@@ -17,27 +17,32 @@
 /**
  * 首页Tabs标签组件
  */
-import { getTopics } from '../../http/api';
 
 /**
- * 定义组件内的常量
+ * 定义组件内的常量 (引用 vuex 后，注释了)
  */
-const PAGE = 1;
-const LIMIT = 20;               // 首次话题数据获取条目数
-const REFRESH_NUM = 10;         // 话题加载条目数
+// const PAGE = 1;
+// const LIMIT = 20;               // 首次话题数据获取条目数
+// const REFRESH_NUM = 10;         // 话题加载条目数
 
 export default {
   /**
-   * 当前组件的‘数据中心'
+   * 当前组件的‘数据中心'(引用 vuex 后，注释了)
    */
-  data() {
-    return {
-      page: PAGE,
-      list: [],
-      tab: 'all',
-      limit: LIMIT,
-      refreshNum: REFRESH_NUM
-    };
+  // data() {
+  //   return {
+  //     page: PAGE,
+  //     list: [],
+  //     tab: 'all',
+  //     limit: LIMIT,
+  //     refreshNum: REFRESH_NUM
+  //   };
+  // },
+
+  computed: {
+    articleLists() {
+      return this.$store.getters.getArticleLists;
+    }
   },
 
   /**
@@ -48,22 +53,15 @@ export default {
      * 封装好的获取首页数据的函数
      */
     getTopics() {
-      getTopics({
-        page: this.page,
-        limit: this.limit,
-        tab: this.tab
-      }).then(res => {
-        this.list = res.data;
-        this.limit += this.refreshNum;
-      });
+      this.$store.dispatch('getTopicLists');
     },
 
     /**
      * 当路由发生切换时，更新list数据
      */
     tabChanged() {
-      this.tab = this.$route.name;
-      this.limit = LIMIT;
+      this.$store.commit('tabChanged', this.$route.name);
+      this.$store.commit('clearArticleNumber');
       this.getTopics();
     },
 
